@@ -1,0 +1,290 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 4 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 36 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 100% / 0.15;
+    --input: 0 0% 100% / 0.15;
+    --ring: 4 100% 50%;
+    --radius: 1.25rem;
+
+    /* Brand colors */
+    --color-gold: #ffb300;
+    --color-gold-dim: rgba(255, 179, 0, 0.15);
+    --color-red: #ff3d00;
+    --color-red-dark: #e53935;
+    --color-red-glow: rgba(255, 61, 0, 0.35);
+    --color-whatsapp: #25D366;
+    --color-whatsapp-glow: rgba(37, 211, 102, 0.4);
+
+    /* Fonts */
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+    /* Glass */
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.13);
+    --glass-blur: 20px;
+    --glass-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  html, body, #root {
+    @apply bg-black text-white;
+    font-family: var(--font-sans);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+@layer components {
+
+  /* --- Typography --- */
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans  { font-family: var(--font-sans); }
+  .font-mono  { font-family: var(--font-mono); }
+
+  /* --- Glass Card --- */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.4s ease;
+    will-change: transform;
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.11);
+    border-color: rgba(255, 179, 0, 0.4);
+    transform: translateY(-10px) scale(1.01);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 179, 0, 0.15),
+      0 0 40px rgba(255, 179, 0, 0.08);
+  }
+
+  /* --- Glass Panel (hero, info) --- */
+  .glass-panel {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.09) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top-color: rgba(255, 255, 255, 0.22);
+    border-radius: 28px;
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* --- Glass Nav (arrows) --- */
+  .glass-nav {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.3s ease;
+  }
+
+  .glass-nav:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 179, 0, 0.4);
+    box-shadow: 0 0 20px rgba(255, 179, 0, 0.15);
+  }
+
+  /* --- Colors --- */
+  .text-warm-gold { color: var(--color-gold); }
+  .bg-warm-gold   { background-color: var(--color-gold); }
+  .text-red-accent { color: var(--color-red-dark); }
+  .bg-red-accent  { background-color: var(--color-red-dark); }
+  .bg-whatsapp    { background-color: var(--color-whatsapp); }
+
+  /* --- Gold divider --- */
+  .gold-divider {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-gold) 20%,
+      var(--color-gold) 80%,
+      transparent
+    );
+    border-radius: 2px;
+  }
+
+  /* --- CTA Button --- */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #e53935 0%, #ff3d00 100%);
+    color: white;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 24px var(--color-red-glow), 0 0 0 0 var(--color-red-glow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: pulse-cta 3s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .btn-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 36px var(--color-red-glow);
+    animation: none;
+  }
+
+  .btn-cta:active {
+    transform: scale(0.97);
+  }
+
+  /* --- Section scroll container --- */
+  .cards-scroll {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1.5rem;
+    padding-top: 0.5rem;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .cards-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ============================================================
+   UTILITIES / ANIMATIONS
+   ============================================================ */
+@layer utilities {
+
+  /* --- Scrollbar hide --- */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* --- Cursor blink --- */
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* --- Bounce arrow indicator --- */
+  .bounce-arrow {
+    animation: bounce-vertical 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-vertical {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(10px); }
+  }
+
+  /* --- CTA pulse glow --- */
+  @keyframes pulse-cta {
+    0%, 100% {
+      box-shadow: 0 4px 24px var(--color-red-glow), 0 0 0 0 var(--color-red-glow);
+    }
+    50% {
+      box-shadow: 0 4px 36px var(--color-red-glow), 0 0 0 8px rgba(229, 57, 53, 0);
+    }
+  }
+
+  /* --- Fade in up --- */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* --- Gold bar expand --- */
+  @keyframes expandBar {
+    from { width: 0; opacity: 0; }
+    to   { width: 80px; opacity: 1; }
+  }
+
+  .animate-expand-bar {
+    animation: expandBar 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  }
+
+  /* --- Scroll hint fade --- */
+  @keyframes fadeInHint {
+    0% { opacity: 0; }
+    30% { opacity: 0.7; }
+    70% { opacity: 0.7; }
+    100% { opacity: 0; }
+  }
+
+  /* --- Nav dot active pill --- */
+  @keyframes dotExpand {
+    from { width: 10px; }
+    to   { width: 32px; }
+  }
+}
