@@ -13,46 +13,36 @@ import { useSectionNavigator } from '@/hooks/useSectionNavigator';
 import { useSwipe } from '@/hooks/useSwipe';
 
 const SECTION_LABELS = ['Inicio', 'Platos', 'Postres', 'Bebidas', 'Info'];
+const TOTAL = 5;
 
 export default function App() {
-  const { activeIndex, totalSections, goTo, goNext, goPrev } = useSectionNavigator();
+  const { activeIndex, goTo, goNext, goPrev } = useSectionNavigator();
   const wheelCooldownRef = useRef(false);
 
   /* ---- Keyboard navigation ---- */
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        goNext();
+        e.preventDefault(); goNext();
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        goPrev();
+        e.preventDefault(); goPrev();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goNext, goPrev]);
 
-  /* ---- Mouse wheel navigation (desktop) ---- */
+  /* ---- Mouse wheel navigation ---- */
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (wheelCooldownRef.current) return;
-
-      // Only trigger on significant horizontal or vertical scroll
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
       if (absX < 30 && absY < 30) return;
-
       wheelCooldownRef.current = true;
-      setTimeout(() => { wheelCooldownRef.current = false; }, 800);
-
-      if (e.deltaX > 0 || e.deltaY > 0) {
-        goNext();
-      } else {
-        goPrev();
-      }
+      setTimeout(() => { wheelCooldownRef.current = false; }, 900);
+      if (e.deltaX > 0 || e.deltaY > 0) goNext(); else goPrev();
     };
-
     window.addEventListener('wheel', handleWheel, { passive: true });
     return () => window.removeEventListener('wheel', handleWheel);
   }, [goNext, goPrev]);
@@ -65,29 +55,37 @@ export default function App() {
     maxDuration: 400,
   });
 
-  const handleOpenMenu = useCallback(() => {
-    goTo(1);
-  }, [goTo]);
+  const handleOpenMenu = useCallback(() => goTo(1), [goTo]);
 
   const prevLabel = activeIndex > 0 ? SECTION_LABELS[activeIndex - 1] : '';
-  const nextLabel = activeIndex < totalSections - 1 ? SECTION_LABELS[activeIndex + 1] : '';
+  const nextLabel = activeIndex < TOTAL - 1 ? SECTION_LABELS[activeIndex + 1] : '';
 
   return (
     <div
-      className="relative w-full h-full overflow-hidden"
+      style={{
+        position: 'relative',
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+        background: '#0a0807',
+      }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* Three.js Terrain Background */}
+      {/* 3D Terrain Background (optional - app works without it) */}
       <TerrainCanvas />
 
       {/* Horizontal Content Slider */}
       <div
-        className="relative z-10 flex h-full will-change-transform"
         style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'flex',
+          height: '100vh',
+          width: `${TOTAL * 100}vw`,
           transform: `translateX(-${activeIndex * 100}vw)`,
-          width: `${totalSections * 100}vw`,
-          transition: 'transform 0.55s cubic-bezier(0.77, 0, 0.175, 1)',
+          transition: 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)',
+          willChange: 'transform',
         }}
       >
         <HeroSection onOpenMenu={handleOpenMenu} />
@@ -99,17 +97,17 @@ export default function App() {
 
       {/* Navigation Dots */}
       <NavigationDots
-        total={totalSections}
+        total={TOTAL}
         active={activeIndex}
         onDotClick={goTo}
       />
 
-      {/* Navigation Arrows (desktop only) */}
+      {/* Navigation Arrows */}
       <NavArrows
         onPrev={goPrev}
         onNext={goNext}
         showPrev={activeIndex > 0}
-        showNext={activeIndex < totalSections - 1}
+        showNext={activeIndex < TOTAL - 1}
         prevLabel={prevLabel}
         nextLabel={nextLabel}
       />

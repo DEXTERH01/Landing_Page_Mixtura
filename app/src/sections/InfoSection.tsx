@@ -28,7 +28,15 @@ export function InfoSection() {
 
   return (
     <section
-      className="w-screen h-screen flex items-center justify-center px-4"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0 1rem',
+        flexShrink: 0,
+      }}
       aria-label="Información del evento"
     >
       <div

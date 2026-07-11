@@ -32,7 +32,16 @@ export function PostresSection() {
 
   return (
     <section
-      className="w-screen h-screen flex flex-col justify-center px-4 md:px-12 overflow-hidden"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '0 1rem',
+        overflow: 'hidden',
+        flexShrink: 0,
+      }}
       aria-label="Postres"
     >
       <SectionHeader title="Postres" count="4 delicias dulces" />

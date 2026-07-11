@@ -51,7 +51,17 @@ export function HeroSection({ onOpenMenu }: HeroSectionProps) {
 
   return (
     <section
-      className="w-screen h-screen flex flex-col items-center justify-center relative px-4"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        padding: '0 1rem',
+        flexShrink: 0,
+      }}
       aria-label="Bienvenida Mixtura 2026"
     >
       {/* Glass panel */}
