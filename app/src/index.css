@@ -787,7 +787,42 @@
 .footer-info {
   font-size: 0.83rem;
   color: var(--text-muted);
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer-location {
+  display: block;
+  max-width: 620px;
+  margin: 0 auto 1.75rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.83rem;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-location:hover {
+  color: #ffb300;
+}
+
+.footer-location small,
+.footer-location strong {
+  display: block;
+}
+
+.footer-location small {
+  margin-top: 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.footer-location strong {
+  margin-top: 0.55rem;
+  color: #ffb300;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .footer-wa {

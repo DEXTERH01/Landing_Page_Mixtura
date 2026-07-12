@@ -4,7 +4,7 @@ import gsap from 'gsap';
 /* ⚠️  Reemplaza XXXXXXXXXX con el número de WhatsApp real */
 const WHATSAPP_NUMBER = 'XXXXXXXXXX';
 const WHATSAPP_MSG    = encodeURIComponent('Hola! Quisiera más información sobre el evento Mixtura 2026 🍽️');
-const MAPS_LINK = 'https://maps.google.com/?q=Av.+Próceres+Mz.15,+Lote+9,+3+de+Octubre+de+Villa,+Chorrillos,+Lima';
+const MAPS_LINK = 'https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8';
 
 export function InfoSection() {
   const panelRef  = useRef<HTMLDivElement>(null);
@@ -81,12 +81,12 @@ export function InfoSection() {
             aria-label="Ver ubicación en Google Maps"
           >
             <p className="text-white/80 text-base leading-relaxed font-sans group-hover:text-amber-400 transition-colors duration-300">
-              Av. Próceres Mz.15, Lote 9 — 3 de Octubre de Villa
+              Av. Próceres, Mz. 15 Lt. 8 — 3 de Octubre de Villa
               <br />
-              <span className="font-semibold">Chorrillos, Lima</span>
+              <span className="font-semibold">Chorrillos</span>
             </p>
             <p className="text-white/40 text-xs mt-1.5 font-sans">
-              Al costado del Colegio José María Arguedas (primaria)
+              A 2 cuadras del mercado Túpac Amaru, al frente del Colegio José María Arguedas de Túpac.
             </p>
             <span className="inline-flex items-center gap-1 mt-2 text-amber-400/70 text-[11px] font-sans group-hover:text-amber-400 transition-colors duration-300 uppercase tracking-wide">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

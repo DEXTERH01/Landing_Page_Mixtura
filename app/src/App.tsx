@@ -313,6 +313,17 @@ export default function App() {
         <p className="footer-info">
           Iglesia Palabra de Vida · Dom 20 de Julio · Chorrillos, Lima
         </p>
+        <a
+          href="https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-location"
+          aria-label="Abrir ubicación del evento en Google Maps"
+        >
+          <span>Av. Próceres, Mz. 15 Lt. 8 · 3 de Octubre de Villa, Chorrillos</span>
+          <small>Referencia: a 2 cuadras del mercado Túpac Amaru, al frente del Colegio José María Arguedas de Túpac.</small>
+          <strong>Ver ubicación en Google Maps ↗</strong>
+        </a>
         <a href={`https://wa.me/${WA_NUM}?text=${WA_MSG}`} target="_blank" rel="noopener noreferrer" className="footer-wa">
           <WaIcon /> Consultar por WhatsApp
         </a>
