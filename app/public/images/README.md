@@ -4,7 +4,7 @@ Esta es la carpeta que usa la web para publicar las fotos:
 
 `E:\Mixtura_2026\app\public\images`
 
-Pega cada archivo directamente en esta carpeta y respeta exactamente el nombre indicado (minúsculas, guiones y extensión `.jpg`). No lo pegues en `E:\Mixtura_2026\images`: esa carpeta no forma parte del sitio que publica Netlify.
+Pega cada archivo directamente en esta carpeta y respeta exactamente el nombre indicado (minúsculas, guiones y extensión `.jpg`). Esta es la única carpeta de imágenes de la carta y es la que publica Netlify.
 
 ## Fotos pendientes
 
