@@ -130,8 +130,6 @@ export const MENU: MenuItem[] = [
     featured: true,
   }),
   menuItem({ id: 'arepas-tumbarrancho', name: 'Arepas tumbarrancho', price: 'Precio pendiente', category: 'platos', image: '/images/arepas-tumbarrancho.jpg' }),
-  menuItem({ id: 'comida-tipica', name: 'Comida típica', price: 'Precio pendiente', category: 'platos', image: '/images/comida-tipica.jpg' }),
-
   // Bebidas
   menuItem({
     id: 'chicha-morada',

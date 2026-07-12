@@ -6,7 +6,11 @@ Esta es la carpeta que usa la web para publicar las fotos:
 
 Pega cada archivo directamente en esta carpeta y respeta exactamente el nombre indicado (minúsculas, guiones y extensión `.jpg`). Esta es la única carpeta de imágenes de la carta y es la que publica Netlify.
 
-## Fotos pendientes
+## Estado actual
+
+Todas las fotos de la carta activa ya están cargadas y conectadas. El plato **Comida típica** fue retirado de la carta y no requiere foto.
+
+## Nombres de archivo
 
 ### Platos
 
@@ -20,7 +24,6 @@ Pega cada archivo directamente en esta carpeta y respeta exactamente el nombre i
 - `lomo-saltado.jpg` — Lomo saltado
 - `papa-rellena.jpg` — Papa rellena
 - `arepas-tumbarrancho.jpg` — Arepas tumbarrancho
-- `comida-tipica.jpg` — Comida típica
 
 ### Bebidas
 
@@ -45,4 +48,4 @@ Pega cada archivo directamente en esta carpeta y respeta exactamente el nombre i
 - Evita archivos muy pesados; idealmente cada foto debe pesar menos de 500 KB.
 - Al reemplazar una foto, conserva el mismo nombre para no cambiar el código.
 
-Las rutas ya están configuradas en la carta: al pegar el archivo correcto y volver a publicar la web, la foto aparecerá automáticamente.
+Las rutas ya están configuradas en la carta: si se reemplaza una foto conservando el mismo nombre, el cambio aparecerá automáticamente al volver a publicar la web.
