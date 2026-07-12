@@ -327,7 +327,7 @@ export default function App() {
         <a href={`https://wa.me/${WA_NUM}?text=${WA_MSG}`} target="_blank" rel="noopener noreferrer" className="footer-wa">
           <WaIcon /> Consultar por WhatsApp
         </a>
-        <p className="footer-credit">🇵🇪 Hecho con ❤️ para Palabra de Vida</p>
+        <p className="footer-credit">¡Te esperamos!</p>
       </footer>
 
       {/* ══ MODAL ═══════════════════════════════════════════════════ */}
