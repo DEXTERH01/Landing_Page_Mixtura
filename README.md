@@ -1,4 +1,40 @@
-# React + TypeScript + Vite
+# Mixtura 2026
+
+Sitio web de la carta oficial de Mixtura 2026, construido con React, TypeScript y Vite.
+
+## Carta
+
+La única fuente de datos de platos, postres, bebidas y precios es:
+
+`app/src/data/menu.ts`
+
+No se deben crear listas locales dentro de componentes. Los productos cuyo precio aún no fue confirmado se publican como `Precio pendiente`.
+
+## Fotos pendientes
+
+La lista de fotos faltantes, sus nombres exactos y la carpeta donde deben pegarse está en:
+
+[`app/public/images/README.md`](app/public/images/README.md)
+
+## Desarrollo
+
+```bash
+cd app
+npm install
+npm run dev
+```
+
+## Verificación
+
+```bash
+cd app
+npm run build
+npm run lint
+```
+
+<!-- Contenido original de la plantilla Vite conservado a continuación como referencia. -->
+
+## Referencia de la plantilla
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

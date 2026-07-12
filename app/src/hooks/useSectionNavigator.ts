@@ -1,16 +1,17 @@
 import { useState, useCallback } from 'react';
 
 export type Section = 'hero' | 'platos' | 'postres' | 'bebidas' | 'info';
+type TerrainMode = 'orbit' | 'drone' | 'walk' | 'overview';
 
 const SECTIONS: Section[] = ['hero', 'platos', 'postres', 'bebidas', 'info'];
 
 // Optional terrain mode switcher registered by TerrainCanvas once 3D is ready
-let _terrainSwitch: ((mode: string) => void) | null = null;
-export function registerTerrainSwitch(fn: (mode: string) => void) {
+let _terrainSwitch: ((mode: TerrainMode) => void) | null = null;
+export function registerTerrainSwitch(fn: (mode: TerrainMode) => void) {
   _terrainSwitch = fn;
 }
 
-const MODE_MAP: Record<Section, string> = {
+const MODE_MAP: Record<Section, TerrainMode> = {
   hero:    'orbit',
   platos:  'drone',
   postres: 'walk',
@@ -25,13 +26,13 @@ export function useSectionNavigator() {
     if (index < 0 || index >= SECTIONS.length) return;
     setActiveIndex(index);
     // Fire terrain mode switch only if 3D terrain is available
-    try { _terrainSwitch?.(MODE_MAP[SECTIONS[index]]); } catch (_) { /* 3D is optional */ }
+    try { _terrainSwitch?.(MODE_MAP[SECTIONS[index]]); } catch { /* 3D is optional */ }
   }, []);
 
   const goNext = useCallback(() => {
     setActiveIndex(prev => {
       const next = Math.min(prev + 1, SECTIONS.length - 1);
-      try { _terrainSwitch?.(MODE_MAP[SECTIONS[next]]); } catch (_) { /* 3D is optional */ }
+      try { _terrainSwitch?.(MODE_MAP[SECTIONS[next]]); } catch { /* 3D is optional */ }
       return next;
     });
   }, []);
@@ -39,7 +40,7 @@ export function useSectionNavigator() {
   const goPrev = useCallback(() => {
     setActiveIndex(prev => {
       const next = Math.max(prev - 1, 0);
-      try { _terrainSwitch?.(MODE_MAP[SECTIONS[next]]); } catch (_) { /* 3D is optional */ }
+      try { _terrainSwitch?.(MODE_MAP[SECTIONS[next]]); } catch { /* 3D is optional */ }
       return next;
     });
   }, []);

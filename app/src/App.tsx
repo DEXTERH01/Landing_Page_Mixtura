@@ -49,15 +49,14 @@ function TiltCard({ children, onClick }: { children: React.ReactNode; onClick: (
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) {
   const [idx, setIdx] = useState(0);
-  const [prev, setPrev] = useState<number | null>(null);
   const [dir, setDir] = useState<'next' | 'prev'>('next');
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [failedImage, setFailedImage] = useState<string | null>(null);
 
   const go = useCallback((newIdx: number, direction: 'next' | 'prev' = 'next') => {
-    setPrev(idx);
     setDir(direction);
     setIdx(newIdx);
-  }, [idx]);
+  }, []);
 
   const advance = useCallback(() => go((idx + 1) % FEATURED.length, 'next'), [go, idx]);
   const retreat = useCallback(() => go((idx - 1 + FEATURED.length) % FEATURED.length, 'prev'), [go, idx]);
@@ -92,9 +91,9 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
       {/* Slide */}
       <div key={idx} className={`carousel-slide carousel-${dir}-in`}>
         {/* Background image */}
-        {dish.image ? (
+        {dish.image && failedImage !== dish.image ? (
           <img src={dish.image} alt={dish.name} className="carousel-bg-img"
-            onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+            onError={() => setFailedImage(dish.image ?? null)} />
         ) : (
           <div className="carousel-bg-placeholder" />
         )}
@@ -141,6 +140,8 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
    DISH MODAL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -151,10 +152,10 @@ function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-card" onClick={e => e.stopPropagation()}>
-        {dish.image && (
+        {dish.image && !imageFailed && (
           <div className="modal-img-wrap">
             <img src={dish.image} alt={dish.name} className="modal-img"
-              onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }} />
+              onError={() => setImageFailed(true)} />
             <div className="modal-img-overlay" />
             {dish.tag && <span className="modal-tag">{dish.tag}</span>}
           </div>
@@ -187,12 +188,14 @@ function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
    MENU CARD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function MenuCard({ item, onClick }: { item: MenuItem; onClick: () => void }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
   return (
     <TiltCard onClick={onClick}>
       <div className="card-img-wrap">
-        {item.image ? (
+        {item.image && !imageFailed ? (
           <img src={item.image} alt={item.name} className="card-img"
-            onError={e => { (e.target as HTMLImageElement).parentElement!.classList.add('no-img'); (e.target as HTMLImageElement).style.display = 'none'; }} />
+            onError={() => setImageFailed(true)} />
         ) : (
           <div className="card-no-img">
             <span>{item.category === 'platos' ? '🍽️' : item.category === 'postres' ? '🍮' : '🥤'}</span>
