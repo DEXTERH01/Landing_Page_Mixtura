@@ -109,7 +109,7 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
           <div className="carousel-actions">
             <span className="carousel-price">{dish.price}</span>
             <button className="carousel-cta" onClick={() => onSelect(dish)}>
-              Ver receta &amp; pedir →
+              Ver plato &amp; pedir →
             </button>
           </div>
         </div>
@@ -168,6 +168,10 @@ function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
           <p className="modal-tagline">{dish.tagline}</p>
           <div className="modal-divider" />
           <p className="modal-description">{dish.description}</p>
+          <p className="modal-cause">
+            <span aria-hidden="true">🧱</span>
+            Con cada plato que disfrutas, es un ladrillo para nuestro Templo.
+          </p>
           <div className="modal-actions">
             <a
               href={`https://wa.me/${WA_NUM}?text=${encodeURIComponent(`¡Quiero pedir: ${dish.name} (${dish.price})! 🍽️`)}`}
@@ -229,6 +233,15 @@ function WaIcon() {
   );
 }
 
+function MapPinIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M20 10c0 5.5-8 11-8 11S4 15.5 4 10a8 8 0 1 1 16 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    APP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -262,6 +275,15 @@ export default function App() {
             </button>
           ))}
         </nav>
+        <a
+          href="https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="header-location"
+          aria-label="Ubícanos en Google Maps"
+        >
+          <MapPinIcon /> <span>Ubícanos</span>
+        </a>
         <a href={`https://wa.me/${WA_NUM}?text=${WA_MSG}`} target="_blank" rel="noopener noreferrer" className="header-wa">
           <WaIcon /> <span className="header-wa-text">Reservar</span>
         </a>
@@ -269,6 +291,11 @@ export default function App() {
 
       {/* ══ FEATURED CAROUSEL ═══════════════════════════════════════ */}
       <FeaturedCarousel onSelect={handleSelect} />
+
+      <aside className="temple-message" aria-label="Mensaje de apoyo al templo">
+        <span aria-hidden="true">🧱</span>
+        <p>Con cada plato que disfrutas, es un ladrillo para nuestro Templo.</p>
+      </aside>
 
       {/* ══ SECTION HEADER ══════════════════════════════════════════ */}
       <div className="section-header">
