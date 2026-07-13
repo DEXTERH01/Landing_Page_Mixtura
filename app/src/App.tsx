@@ -9,11 +9,13 @@ import { MENU, CATEGORIES, FEATURED, type MenuItem, type Category } from '@/data
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 const WA_NUM = 'XXXXXXXXXX';
 const WA_MSG = encodeURIComponent('¡Hola! Quisiera información sobre el evento Mixtura 2026. ¿Dónde y cuándo es?');
+const MAPS_LINK = 'https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8';
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent('Av. Próceres, Mz. 15 Lt. 8, 3 de Octubre de Villa, Chorrillos, Lima')}&output=embed`;
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    3D TILT CARD WRAPPER
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function TiltCard({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+function TiltCard({ children, onClick, className = '' }: { children: React.ReactNode; onClick: () => void; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const handleMove = (e: RMouseEvent<HTMLDivElement>) => {
@@ -37,7 +39,7 @@ function TiltCard({ children, onClick }: { children: React.ReactNode; onClick: (
       onClick={onClick}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className="tilt-card"
+      className={`tilt-card ${className}`}
     >
       {children}
     </div>
@@ -109,7 +111,7 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
           <div className="carousel-actions">
             <span className="carousel-price">{dish.price}</span>
             <button className="carousel-cta" onClick={() => onSelect(dish)}>
-              Ver plato &amp; pedir →
+              Ver y pedir →
             </button>
           </div>
         </div>
@@ -139,19 +141,25 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    DISH MODAL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
-  const [imageFailed, setImageFailed] = useState(false);
-
+function useModalDismissal(onClose: () => void) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
     window.addEventListener('keydown', onKey);
-    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey); };
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
   }, [onClose]);
+}
+
+function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  useModalDismissal(onClose);
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-card" onClick={e => e.stopPropagation()}>
+    <div className="modal-backdrop" onClick={onClose} role="presentation">
+      <div className="modal-card" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby={`dish-title-${dish.id}`}>
         {dish.image && !imageFailed && (
           <div className="modal-img-wrap">
             <img src={dish.image} alt={dish.name} className="modal-img"
@@ -162,16 +170,13 @@ function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
         )}
         <div className="modal-body">
           <div className="modal-header-row">
-            <h2 className="modal-title">{dish.name}</h2>
+            <h2 id={`dish-title-${dish.id}`} className="modal-title">{dish.name}</h2>
             <span className="modal-price">{dish.price}</span>
           </div>
           <p className="modal-tagline">{dish.tagline}</p>
+          <p className="modal-origin">Origen y tradición: {dish.origin}</p>
           <div className="modal-divider" />
-          <p className="modal-description">{dish.description}</p>
-          <p className="modal-cause">
-            <span aria-hidden="true">🧱</span>
-            Con cada plato que disfrutas, es un ladrillo para nuestro Templo.
-          </p>
+          <p className="modal-description">{dish.story}</p>
           <div className="modal-actions">
             <a
               href={`https://wa.me/${WA_NUM}?text=${encodeURIComponent(`¡Quiero pedir: ${dish.name} (${dish.price})! 🍽️`)}`}
@@ -188,6 +193,43 @@ function DishModal({ dish, onClose }: { dish: MenuItem; onClose: () => void }) {
   );
 }
 
+function LocationModal({ onClose }: { onClose: () => void }) {
+  useModalDismissal(onClose);
+
+  return (
+    <div className="modal-backdrop" onClick={onClose} role="presentation">
+      <div className="location-modal" onClick={event => event.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="location-title">
+        <div className="location-modal-header">
+          <div>
+            <p className="location-kicker">MIXTURA 2026</p>
+            <h2 id="location-title">¿Cómo llegar?</h2>
+          </div>
+          <button className="location-close" onClick={onClose} aria-label="Cerrar ubicación">✕</button>
+        </div>
+        <iframe
+          className="location-map"
+          title="Mapa de ubicación de Mixtura 2026"
+          src={MAP_EMBED_URL}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+        <div className="location-modal-body">
+          <p className="location-address">Av. Próceres, Mz. 15 Lt. 8 · 3 de Octubre de Villa, Chorrillos</p>
+          <ol className="location-directions">
+            <li>Dirígete a la Av. Próceres, en 3 de Octubre de Villa.</li>
+            <li>Estamos a 2 cuadras del mercado Túpac Amaru.</li>
+            <li>Nos encontrarás al frente del Colegio José María Arguedas de Túpac.</li>
+          </ol>
+          <p className="location-note">Te esperamos para compartir sabores, comunidad y propósito.</p>
+          <a href={MAPS_LINK} target="_blank" rel="noopener noreferrer" className="btn-map">
+            <MapPinIcon /> Abrir en Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    MENU CARD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -195,7 +237,7 @@ function MenuCard({ item, onClick }: { item: MenuItem; onClick: () => void }) {
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
-    <TiltCard onClick={onClick}>
+    <TiltCard onClick={onClick} className={item.category === 'platos' ? 'dish-card' : ''}>
       <div className="card-img-wrap">
         {item.image && !imageFailed ? (
           <img src={item.image} alt={item.name} className="card-img"
@@ -211,9 +253,10 @@ function MenuCard({ item, onClick }: { item: MenuItem; onClick: () => void }) {
       <div className="card-body">
         <h3 className="card-name">{item.name}</h3>
         <p className="card-tagline">{item.tagline}</p>
+        <p className="card-origin">{item.origin}</p>
         <div className="card-footer">
           <span className="card-price">{item.price}</span>
-          <span className="card-more">Ver más →</span>
+          <span className="card-more">Ver y pedir →</span>
         </div>
       </div>
       {/* 3D shine layer */}
@@ -248,6 +291,7 @@ function MapPinIcon() {
 export default function App() {
   const [category, setCategory] = useState<Category>('platos');
   const [selected, setSelected] = useState<MenuItem | null>(null);
+  const [locationOpen, setLocationOpen] = useState(false);
   const filtered = MENU.filter(m => m.category === category);
 
   const handleSelect = useCallback((dish: MenuItem) => setSelected(dish), []);
@@ -275,15 +319,14 @@ export default function App() {
             </button>
           ))}
         </nav>
-        <a
-          href="https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={() => setLocationOpen(true)}
           className="header-location"
-          aria-label="Ubícanos en Google Maps"
+          aria-label="Ver indicaciones para llegar"
         >
           <MapPinIcon /> <span>Ubícanos</span>
-        </a>
+        </button>
         <a href={`https://wa.me/${WA_NUM}?text=${WA_MSG}`} target="_blank" rel="noopener noreferrer" className="header-wa">
           <WaIcon /> <span className="header-wa-text">Reservar</span>
         </a>
@@ -291,11 +334,6 @@ export default function App() {
 
       {/* ══ FEATURED CAROUSEL ═══════════════════════════════════════ */}
       <FeaturedCarousel onSelect={handleSelect} />
-
-      <aside className="temple-message" aria-label="Mensaje de apoyo al templo">
-        <span aria-hidden="true">🧱</span>
-        <p>Con cada plato que disfrutas, es un ladrillo para nuestro Templo.</p>
-      </aside>
 
       {/* ══ SECTION HEADER ══════════════════════════════════════════ */}
       <div className="section-header">
@@ -341,7 +379,7 @@ export default function App() {
           Iglesia Palabra de Vida · Dom 20 de Julio · Chorrillos, Lima
         </p>
         <a
-          href="https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8"
+          href={MAPS_LINK}
           target="_blank"
           rel="noopener noreferrer"
           className="footer-location"
@@ -354,11 +392,12 @@ export default function App() {
         <a href={`https://wa.me/${WA_NUM}?text=${WA_MSG}`} target="_blank" rel="noopener noreferrer" className="footer-wa">
           <WaIcon /> Consultar por WhatsApp
         </a>
-        <p className="footer-credit">¡Te esperamos!</p>
+        <p className="footer-cause"><span aria-hidden="true">🧱</span> Con cada plato que disfrutas, es un ladrillo para nuestro Templo.</p>
       </footer>
 
       {/* ══ MODAL ═══════════════════════════════════════════════════ */}
       {selected && <DishModal dish={selected} onClose={handleClose} />}
+      {locationOpen && <LocationModal onClose={() => setLocationOpen(false)} />}
     </>
   );
 }
