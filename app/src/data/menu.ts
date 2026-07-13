@@ -88,7 +88,7 @@ export const MENU: MenuItem[] = [
     story: 'El pollo broster se volvió un favorito de las comidas compartidas y las salidas en familia. Aquí puedes escoger alitas, pecho, pierna o entrepierna según tu antojo.',
   }),
   item({
-    id: 'juanes', name: 'Juanes', price: 'Precio pendiente', category: 'platos', image: '/images/juanes.jpg',
+    id: 'juanes', name: 'Juanes', price: 'S/ 10.00', category: 'platos', image: '/images/juanes.jpg',
     tagline: 'Un viaje a la Amazonía peruana.',
     origin: 'Amazonía peruana · Fiesta de San Juan',
     story: 'Los juanes son emblema de la Amazonía y ocupan un lugar especial durante la fiesta de San Juan. En la carta invitan a descubrir la diversidad regional del Perú.',
@@ -107,12 +107,6 @@ export const MENU: MenuItem[] = [
     tag: '⭐ Popular', featured: true,
   }),
   item({
-    id: 'lomo-saltado', name: 'Lomo saltado', price: 'Precio pendiente', category: 'platos', image: '/images/lomo-saltado.jpg',
-    tagline: 'El encuentro peruano-chino en un clásico.',
-    origin: 'Fusión chino-peruana · Chifa',
-    story: 'El lomo saltado nació del diálogo entre la cocina peruana y la migración china. Es uno de los grandes símbolos de la fusión que hizo única a la gastronomía limeña.',
-  }),
-  item({
     id: 'papa-rellena', name: 'Papa rellena', price: 'S/ 5.00', category: 'platos', image: '/images/papa-rellena.jpg',
     tagline: 'Un bocado criollo para seguir el recorrido.',
     origin: 'Cocina criolla peruana',
@@ -126,7 +120,7 @@ export const MENU: MenuItem[] = [
     featured: true,
   }),
   item({
-    id: 'arepas-tumbarrancho', name: 'Arepas tumbarrancho', price: 'Precio pendiente', category: 'platos', image: '/images/arepas-tumbarrancho.jpg',
+    id: 'arepas-tumbarrancho', name: 'Arepas tumbarrancho', price: 'S/ 5.00', category: 'platos', image: '/images/arepas-tumbarrancho.jpg',
     tagline: 'Un sabor maracucho que llega a Mixtura.',
     origin: 'Zulia · Venezuela',
     story: 'El tumbarrancho es una arepa emblemática de la tradición callejera zuliana, especialmente de Maracaibo. Esta especialidad venezolana trae a la feria una historia de identidad, barrio y sabor compartido.',
@@ -161,13 +155,6 @@ export const MENU: MenuItem[] = [
   }),
 
   // Postres
-  item({
-    id: 'picarones', name: 'Picarones', price: 'Precio pendiente', category: 'postres', image: '/images/picarones.jpg',
-    tagline: 'El dulce limeño que une generaciones.',
-    origin: 'Tradición dulce de Lima',
-    story: 'Los picarones son parte de los postres más queridos de la capital y de sus ferias. Son el cierre clásico para una visita llena de sabores peruanos.',
-    tag: '🔥 Top', featured: true,
-  }),
   item({
     id: 'torta-chocolate', name: 'Torta de chocolate', price: 'S/ 3.00', category: 'postres', image: '/images/torta-chocolate.jpg',
     tagline: 'Un antojo dulce para regalarte un momento.',

@@ -78,10 +78,26 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
 
   // Touch swipe on carousel
   const touchX = useRef(0);
-  const handleTouchStart = (e: RTouchEvent<HTMLDivElement>) => { touchX.current = e.touches[0].clientX; };
+  const didSwipe = useRef(false);
+  const handleTouchStart = (e: RTouchEvent<HTMLDivElement>) => {
+    touchX.current = e.touches[0].clientX;
+    didSwipe.current = false;
+  };
   const handleTouchEnd = (e: RTouchEvent<HTMLDivElement>) => {
     const dx = e.changedTouches[0].clientX - touchX.current;
-    if (Math.abs(dx) > 50) { resetTimer(); if (dx < 0) advance(); else retreat(); }
+    if (Math.abs(dx) > 50) {
+      didSwipe.current = true;
+      resetTimer();
+      if (dx < 0) advance(); else retreat();
+    }
+  };
+
+  const openDish = () => {
+    if (didSwipe.current) {
+      didSwipe.current = false;
+      return;
+    }
+    onSelect(dish);
   };
 
   return (
@@ -91,7 +107,20 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
       onTouchEnd={handleTouchEnd}
     >
       {/* Slide */}
-      <div key={idx} className={`carousel-slide carousel-${dir}-in`}>
+      <div
+        key={idx}
+        className={`carousel-slide carousel-${dir}-in carousel-slide-interactive`}
+        onClick={openDish}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openDish();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label={`Ver información y pedir ${dish.name}`}
+      >
         {/* Background image */}
         {dish.image && failedImage !== dish.image ? (
           <img src={dish.image} alt={dish.name} className="carousel-bg-img"
@@ -110,9 +139,6 @@ function FeaturedCarousel({ onSelect }: { onSelect: (dish: MenuItem) => void }) 
           <p className="carousel-tagline">{dish.tagline}</p>
           <div className="carousel-actions">
             <span className="carousel-price">{dish.price}</span>
-            <button className="carousel-cta" onClick={() => onSelect(dish)}>
-              Ver y pedir →
-            </button>
           </div>
         </div>
       </div>

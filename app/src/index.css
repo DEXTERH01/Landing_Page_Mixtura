@@ -328,23 +328,13 @@
   text-shadow: 0 0 20px rgba(232,160,32,0.5);
 }
 
-.carousel-cta {
-  background: var(--red);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.75rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.9rem;
-  font-weight: 700;
+.carousel-slide-interactive {
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 8px 30px var(--red-glow);
-  letter-spacing: 0.03em;
 }
 
-.carousel-cta:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 40px var(--red-glow);
+.carousel-slide-interactive:focus-visible {
+  outline: 2px solid #ffb300;
+  outline-offset: -4px;
 }
 
 /* Arrows */
