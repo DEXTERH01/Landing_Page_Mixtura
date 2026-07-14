@@ -13,6 +13,7 @@ const WA_MSG = encodeURIComponent('¡Hola! Quisiera información sobre el evento
 const MAPS_LINK = 'https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8';
 const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent('Av. Próceres, Mz. 15 Lt. 8, 3 de Octubre de Villa, Chorrillos, Lima')}&output=embed`;
 const FULL_MENU_CATEGORY_ORDER: Category[] = ['platos', 'bebidas', 'postres'];
+type MenuView = Category | 'carta';
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    3D TILT CARD WRAPPER
@@ -317,10 +318,11 @@ function MapPinIcon() {
    APP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function App() {
-  const [category, setCategory] = useState<Category>('platos');
+  const [view, setView] = useState<MenuView>('platos');
   const [selected, setSelected] = useState<MenuItem | null>(null);
   const [locationOpen, setLocationOpen] = useState(false);
-  const filtered = MENU.filter(m => m.category === category);
+  const isFullMenu = view === 'carta';
+  const filtered = isFullMenu ? [] : MENU.filter((menuItem) => menuItem.category === view);
 
   const handleSelect = useCallback((dish: MenuItem) => setSelected(dish), []);
   const handleClose  = useCallback(() => setSelected(null), []);
@@ -339,13 +341,20 @@ export default function App() {
           {CATEGORIES.map(c => (
             <button
               key={c.id}
-              onClick={() => setCategory(c.id)}
-              className={`header-nav-btn${category === c.id ? ' active' : ''}`}
+              onClick={() => setView(c.id)}
+              className={`header-nav-btn${view === c.id ? ' active' : ''}`}
               style={{ '--cat-color': c.color } as React.CSSProperties}
             >
               {c.icon} {c.label}
             </button>
           ))}
+          <button
+            onClick={() => setView('carta')}
+            className={`header-nav-btn${isFullMenu ? ' active' : ''}`}
+            style={{ '--cat-color': '#E8A020' } as React.CSSProperties}
+          >
+            📋 Carta
+          </button>
         </nav>
         <button
           type="button"
@@ -361,16 +370,15 @@ export default function App() {
       </header>
 
       {/* ══ FEATURED CAROUSEL ═══════════════════════════════════════ */}
-      <FeaturedCarousel onSelect={handleSelect} />
+      {!isFullMenu && <FeaturedCarousel onSelect={handleSelect} />}
 
       {/* ══ SECTION HEADER ══════════════════════════════════════════ */}
       <div className="section-header">
         <div className="section-title-wrap">
           <h2 className="section-title">
-            {CATEGORIES.find(c => c.id === category)?.icon}&nbsp;
-            {CATEGORIES.find(c => c.id === category)?.label}
+            {isFullMenu ? '📋 Carta completa' : <>{CATEGORIES.find((category) => category.id === view)?.icon}&nbsp;{CATEGORIES.find((category) => category.id === view)?.label}</>}
           </h2>
-          <p className="section-subtitle">{filtered.length} opciones disponibles</p>
+          <p className="section-subtitle">{isFullMenu ? 'Todos los sabores y precios para el día de Mixtura' : `${filtered.length} opciones disponibles`}</p>
         </div>
 
         {/* Category tabs (mobile) */}
@@ -378,29 +386,35 @@ export default function App() {
           {CATEGORIES.map(c => (
             <button
               key={c.id}
-              onClick={() => setCategory(c.id)}
-              className={`cat-tab${category === c.id ? ' active' : ''}`}
+              onClick={() => setView(c.id)}
+              className={`cat-tab${view === c.id ? ' active' : ''}`}
               style={{ '--cat-color': c.color } as React.CSSProperties}
             >
               {c.icon} {c.label}
               <span className="cat-tab-count">{MENU.filter(m => m.category === c.id).length}</span>
             </button>
           ))}
+          <button
+            onClick={() => setView('carta')}
+            className={`cat-tab${isFullMenu ? ' active' : ''}`}
+            style={{ '--cat-color': '#E8A020' } as React.CSSProperties}
+          >
+            📋 Carta
+          </button>
         </div>
-        <a href="#carta-completa" className="full-menu-trigger">Ver toda la carta ↓</a>
       </div>
 
       {/* ══ MENU GRID ═══════════════════════════════════════════════ */}
-      <main className="menu-grid" role="list" aria-label="Menú">
+      {!isFullMenu && <main className="menu-grid" role="list" aria-label="Menú">
         {filtered.map((item, i) => (
           <div key={item.id} className="menu-grid-item" style={{ '--delay': `${i * 0.06}s` } as React.CSSProperties}>
             <MenuCard item={item} onClick={() => handleSelect(item)} />
           </div>
         ))}
-      </main>
+      </main>}
 
       {/* ══ FULL MENU ══════════════════════════════════════════════ */}
-      <section id="carta-completa" className="full-menu" aria-labelledby="full-menu-title">
+      {isFullMenu && <section className="full-menu" aria-labelledby="full-menu-title">
         <div className="full-menu-heading">
           <p className="full-menu-kicker">MIXTURA 2026</p>
           <h2 id="full-menu-title">Carta completa</h2>
@@ -429,7 +443,7 @@ export default function App() {
             );
           })}
         </div>
-      </section>
+      </section>}
 
       {/* ══ FOOTER ══════════════════════════════════════════════════ */}
       <footer className="site-footer">

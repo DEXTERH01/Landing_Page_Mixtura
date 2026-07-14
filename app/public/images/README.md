@@ -8,7 +8,7 @@ Pega cada archivo directamente en esta carpeta y respeta exactamente el nombre i
 
 ## Estado actual
 
-Todas las fotos de la carta activa están conectadas. Falta subir la foto de **Torta helada** con el nombre exacto indicado abajo. El plato **Comida típica** fue retirado de la carta y no requiere foto.
+Todas las fotos de la carta activa están conectadas, incluida la **Torta helada**. El plato **Comida típica** fue retirado de la carta y no requiere foto.
 
 ## Nombres de archivo
 

@@ -433,25 +433,6 @@
   flex-wrap: wrap;
 }
 
-.full-menu-trigger {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.15rem;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid rgba(255, 179, 0, 0.35);
-  border-radius: var(--radius-pill);
-  color: #ffb300;
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.full-menu-trigger:hover {
-  background: rgba(255, 179, 0, 0.12);
-  color: #ffd166;
-}
-
 .cat-tab {
   display: flex;
   align-items: center;

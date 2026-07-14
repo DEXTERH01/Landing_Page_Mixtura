@@ -181,7 +181,7 @@ export const MENU: MenuItem[] = [
     story: 'La gelatina aparece en los recuerdos de muchas reuniones familiares y celebraciones. En Mixtura es una alternativa alegre para grandes y chicos.',
   }),
   item({
-    id: 'torta-helada', name: 'Torta helada', price: 'S/ 2.00', category: 'postres', image: '/images/torta-helada.jpg',
+    id: 'torta-helada', name: 'Torta helada', price: 'S/ 2.00', category: 'postres', image: '/images/torta-helada.jpg?v=1',
     tagline: 'Un postre fresco para cerrar la visita.',
     origin: 'Repostería de celebración',
     story: 'La torta helada acompaña fiestas y reuniones con una pausa dulce y refrescante. Una nueva opción para compartir al final del recorrido.',
