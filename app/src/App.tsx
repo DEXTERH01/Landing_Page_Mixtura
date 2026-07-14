@@ -12,6 +12,7 @@ const WA_NUM = '51988181412';
 const WA_MSG = encodeURIComponent('¡Hola! Quisiera información sobre el evento Mixtura 2026. ¿Dónde y cuándo es?');
 const MAPS_LINK = 'https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8';
 const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent('Av. Próceres, Mz. 15 Lt. 8, 3 de Octubre de Villa, Chorrillos, Lima')}&output=embed`;
+const FULL_MENU_CATEGORY_ORDER: Category[] = ['platos', 'bebidas', 'postres'];
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    3D TILT CARD WRAPPER
@@ -386,6 +387,7 @@ export default function App() {
             </button>
           ))}
         </div>
+        <a href="#carta-completa" className="full-menu-trigger">Ver toda la carta ↓</a>
       </div>
 
       {/* ══ MENU GRID ═══════════════════════════════════════════════ */}
@@ -396,6 +398,38 @@ export default function App() {
           </div>
         ))}
       </main>
+
+      {/* ══ FULL MENU ══════════════════════════════════════════════ */}
+      <section id="carta-completa" className="full-menu" aria-labelledby="full-menu-title">
+        <div className="full-menu-heading">
+          <p className="full-menu-kicker">MIXTURA 2026</p>
+          <h2 id="full-menu-title">Carta completa</h2>
+          <p>Todos los sabores y precios para el día de Mixtura.</p>
+        </div>
+        <div className="full-menu-groups">
+          {FULL_MENU_CATEGORY_ORDER.map((categoryId) => {
+            const categoryInfo = CATEGORIES.find((category) => category.id === categoryId)!;
+            const items = MENU.filter((menuItem) => menuItem.category === categoryId);
+
+            return (
+              <section key={categoryId} className="full-menu-group" aria-labelledby={`full-menu-${categoryId}`}>
+                <h3 id={`full-menu-${categoryId}`}>
+                  <span>{categoryInfo.icon}</span> {categoryInfo.label}
+                  <small>{items.length}</small>
+                </h3>
+                <ul>
+                  {items.map((menuItem) => (
+                    <li key={menuItem.id}>
+                      <span>{menuItem.name}</span>
+                      <strong>{menuItem.price}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
+        </div>
+      </section>
 
       {/* ══ FOOTER ══════════════════════════════════════════════════ */}
       <footer className="site-footer">
