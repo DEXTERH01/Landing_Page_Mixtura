@@ -1,7 +1,7 @@
 /* ⚠️  Reemplaza XXXXXXXXXX con el número de WhatsApp real (sin espacios, con código de país)
        Ejemplo para Perú: 51999888777  */
-const WHATSAPP_NUMBER = 'XXXXXXXXXX';
-const WHATSAPP_MSG    = encodeURIComponent('Hola! Quiero hacer un pedido del evento Mixtura 2026 🍽️');
+const WHATSAPP_NUMBER = '51988181412';
+const WHATSAPP_MSG    = encodeURIComponent('Hola! Quiero hacer un pedido del evento Mixtura 2026');
 
 export function WhatsAppButton() {
   return (
