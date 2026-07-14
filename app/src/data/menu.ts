@@ -39,13 +39,13 @@ export const MENU: MenuItem[] = [
     story: 'Los chicharrones son parte del ritmo de los mercados y las mañanas peruanas. Su presencia en la feria trae ese sabor de encuentro que se disfruta mejor acompañado.',
   }),
   item({
-    id: 'pollo-cilindro', name: 'Pollo al cilindro', price: 'S/ 20.00', category: 'platos', image: '/images/pollo-cilindro.jpg',
+    id: 'pollo-cilindro', name: 'Pollo al cilindro', price: 'S/ 15.00', category: 'platos', image: '/images/pollo-cilindro.jpg',
     tagline: 'El espíritu de la parrilla en tu plato.',
     origin: 'Tradición de brasas peruanas',
     story: 'Las preparaciones al cilindro acompañan reuniones de barrio y celebraciones familiares. Este plato lleva esa energía festiva a la carta de Mixtura.',
   }),
   item({
-    id: 'arroz-pato', name: 'Arroz con pato', price: 'S/ 15.00', category: 'platos', image: '/images/arroz-pato.jpg',
+    id: 'arroz-pato', name: 'Arroz con pato', price: 'S/ 15.00', category: 'platos', image: '/images/arroz-pato.jpg?v=1',
     tagline: 'Un emblema norteño para celebrar.',
     origin: 'Lambayeque · norte del Perú',
     story: 'El arroz con pato es una de las preparaciones más representativas de la cocina lambayecana. En cada feria recuerda la generosidad y orgullo gastronómico del norte peruano.',
@@ -129,26 +129,26 @@ export const MENU: MenuItem[] = [
 
   // Bebidas
   item({
-    id: 'chicha-morada', name: 'Chicha morada (refresco)', price: 'Vaso S/ 2.00 · Jarra S/ 6.00', category: 'bebidas', image: '/images/chicha-morada.jpg',
+    id: 'chicha-morada', name: 'Chicha morada (refresco)', price: 'Vaso S/ 2.00 · Jarra 1 Lt. S/ 6.00', category: 'bebidas', image: '/images/chicha-morada.jpg',
     tagline: 'El refresco morado que acompaña al Perú.',
     origin: 'Tradición limeña',
     story: 'La chicha morada forma parte de la identidad cotidiana de Lima y acompaña mesas familiares de generación en generación. Disponible por vaso o jarra para compartir la visita.',
     tag: '⭐ Popular', featured: true,
   }),
   item({
-    id: 'emoliente', name: 'Emoliente (refresco)', price: 'Vaso S/ 2.00 · Jarra S/ 6.00', category: 'bebidas', image: '/images/emoliente.jpg',
+    id: 'emoliente', name: 'Emoliente (refresco)', price: 'Vaso S/ 2.00 · Jarra 1 Lt. S/ 6.00', category: 'bebidas', image: '/images/emoliente.jpg',
     tagline: 'Una pausa tradicional en el camino.',
     origin: 'Carretillas y calles de Lima',
     story: 'El emoliente es parte del paisaje de las calles peruanas, una bebida que acompaña madrugadas y conversaciones. Aquí está disponible por vaso o jarra.',
   }),
   item({
-    id: 'camu-camu', name: 'Camu camu (refresco)', price: 'Vaso S/ 2.00 · Jarra S/ 6.00', category: 'bebidas', image: '/images/camu-camu.jpg',
+    id: 'camu-camu', name: 'Camu camu (refresco)', price: 'Vaso S/ 2.00 · Jarra 1 Lt. S/ 6.00', category: 'bebidas', image: '/images/camu-camu.jpg',
     tagline: 'Un refresco que conecta con la Amazonía.',
     origin: 'Amazonía peruana',
     story: 'El camu camu acerca a la feria uno de los sabores más reconocibles de la Amazonía peruana. Puedes disfrutarlo por vaso o en jarra para compartir.',
   }),
   item({
-    id: 'chicha-jora', name: 'Chicha de jora', price: 'Precio pendiente', category: 'bebidas', image: '/images/chicha-jora.jpg',
+    id: 'chicha-jora', name: 'Chicha jora (refresco)', price: 'Vaso S/ 2.00 · Jarra jora 1 Lt. S/ 7.00', category: 'bebidas', image: '/images/chicha-jora.jpg',
     tagline: 'Una bebida de memoria andina.',
     origin: 'Andes del Perú',
     story: 'La chicha de jora ocupa un lugar especial en celebraciones y encuentros de los Andes. Su presencia en la carta suma una tradición profunda a la experiencia de Mixtura.',
@@ -180,13 +180,19 @@ export const MENU: MenuItem[] = [
     story: 'La gelatina aparece en los recuerdos de muchas reuniones familiares y celebraciones. En Mixtura es una alternativa alegre para grandes y chicos.',
   }),
   item({
-    id: 'chifon', name: 'Chifón', price: 'Precio pendiente', category: 'postres', image: '/images/chifon.jpg',
+    id: 'torta-helada', name: 'Torta helada', price: 'S/ 2.00', category: 'postres', image: '/images/torta-helada.jpg',
+    tagline: 'Un postre fresco para cerrar la visita.',
+    origin: 'Repostería de celebración',
+    story: 'La torta helada acompaña fiestas y reuniones con una pausa dulce y refrescante. Una nueva opción para compartir al final del recorrido.',
+  }),
+  item({
+    id: 'chifon', name: 'Chifón', price: 'S/ 2.00', category: 'postres', image: '/images/chifon.jpg',
     tagline: 'Un dulce suave para acompañar la tarde.',
     origin: 'Pastelería peruana',
     story: 'El chifón aporta una pausa ligera a la experiencia de la feria. Una opción para disfrutar con calma entre un plato, una bebida y una conversación.',
   }),
   item({
-    id: 'pye-manzana', name: 'Pye de manzana', price: 'Precio pendiente', category: 'postres', image: '/images/pye-manzana.jpg',
+    id: 'pye-manzana', name: 'Pye de manzana', price: 'S/ 2.50', category: 'postres', image: '/images/pye-manzana.jpg',
     tagline: 'Un cierre dulce para tu recorrido.',
     origin: 'Repostería de encuentro',
     story: 'El pye de manzana es una invitación a terminar la visita con un momento especial. Un postre pensado para compartir y volver a disfrutar.',

@@ -7,7 +7,8 @@ import { MENU, CATEGORIES, FEATURED, type MenuItem, type Category } from '@/data
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    CONSTANTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-const WA_NUM = 'XXXXXXXXXX';
+// wa.me requiere el código de país de Perú (51) antes del número local.
+const WA_NUM = '51988181412';
 const WA_MSG = encodeURIComponent('¡Hola! Quisiera información sobre el evento Mixtura 2026. ¿Dónde y cuándo es?');
 const MAPS_LINK = 'https://maps.app.goo.gl/uUQAwiVu7aE6Y1oW8';
 const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent('Av. Próceres, Mz. 15 Lt. 8, 3 de Octubre de Villa, Chorrillos, Lima')}&output=embed`;
