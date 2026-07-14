@@ -348,13 +348,6 @@ export default function App() {
               {c.icon} {c.label}
             </button>
           ))}
-          <button
-            onClick={() => setView('carta')}
-            className={`header-nav-btn${isFullMenu ? ' active' : ''}`}
-            style={{ '--cat-color': '#E8A020' } as React.CSSProperties}
-          >
-            📋 Carta
-          </button>
         </nav>
         <button
           type="button"
@@ -373,12 +366,11 @@ export default function App() {
       {!isFullMenu && <FeaturedCarousel onSelect={handleSelect} />}
 
       {/* ══ SECTION HEADER ══════════════════════════════════════════ */}
-      <div className="section-header">
+      {!isFullMenu && <div className="section-header">
         <div className="section-title-wrap">
           <h2 className="section-title">
-            {isFullMenu ? '📋 Carta completa' : <>{CATEGORIES.find((category) => category.id === view)?.icon}&nbsp;{CATEGORIES.find((category) => category.id === view)?.label}</>}
+            <>{CATEGORIES.find((category) => category.id === view)?.icon}&nbsp;{CATEGORIES.find((category) => category.id === view)?.label}</>
           </h2>
-          <p className="section-subtitle">{isFullMenu ? 'Todos los sabores y precios para el día de Mixtura' : `${filtered.length} opciones disponibles`}</p>
         </div>
 
         {/* Category tabs (mobile) */}
@@ -391,27 +383,26 @@ export default function App() {
               style={{ '--cat-color': c.color } as React.CSSProperties}
             >
               {c.icon} {c.label}
-              <span className="cat-tab-count">{MENU.filter(m => m.category === c.id).length}</span>
             </button>
           ))}
-          <button
-            onClick={() => setView('carta')}
-            className={`cat-tab${isFullMenu ? ' active' : ''}`}
-            style={{ '--cat-color': '#E8A020' } as React.CSSProperties}
-          >
-            📋 Carta
-          </button>
         </div>
-      </div>
+      </div>}
 
       {/* ══ MENU GRID ═══════════════════════════════════════════════ */}
-      {!isFullMenu && <main className="menu-grid" role="list" aria-label="Menú">
-        {filtered.map((item, i) => (
-          <div key={item.id} className="menu-grid-item" style={{ '--delay': `${i * 0.06}s` } as React.CSSProperties}>
-            <MenuCard item={item} onClick={() => handleSelect(item)} />
-          </div>
-        ))}
-      </main>}
+      {!isFullMenu && <>
+        <main className="menu-grid" role="list" aria-label="Menú">
+          {filtered.map((item, i) => (
+            <div key={item.id} className="menu-grid-item" style={{ '--delay': `${i * 0.06}s` } as React.CSSProperties}>
+              <MenuCard item={item} onClick={() => handleSelect(item)} />
+            </div>
+          ))}
+        </main>
+        <div className="full-menu-cta-wrap">
+          <button type="button" className="full-menu-cta" onClick={() => setView('carta')}>
+            📋 Ver carta completa <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </>}
 
       {/* ══ FULL MENU ══════════════════════════════════════════════ */}
       {isFullMenu && <section className="full-menu" aria-labelledby="full-menu-title">
@@ -419,6 +410,7 @@ export default function App() {
           <p className="full-menu-kicker">MIXTURA 2026</p>
           <h2 id="full-menu-title">Carta completa</h2>
           <p>Todos los sabores y precios para el día de Mixtura.</p>
+          <button type="button" className="full-menu-back" onClick={() => setView('platos')}>← Volver a los platos</button>
         </div>
         <div className="full-menu-groups">
           {FULL_MENU_CATEGORY_ORDER.map((categoryId) => {
@@ -429,15 +421,16 @@ export default function App() {
               <section key={categoryId} className="full-menu-group" aria-labelledby={`full-menu-${categoryId}`}>
                 <h3 id={`full-menu-${categoryId}`}>
                   <span>{categoryInfo.icon}</span> {categoryInfo.label}
-                  <small>{items.length}</small>
                 </h3>
                 <ul>
-                  {items.map((menuItem) => (
-                    <li key={menuItem.id}>
+                  {items.map((menuItem) => {
+                    const priceLines = menuItem.price.split(' · ');
+
+                    return <li key={menuItem.id} className={priceLines.length > 1 ? 'has-price-lines' : ''}>
                       <span>{menuItem.name}</span>
-                      <strong>{menuItem.price}</strong>
+                      <strong>{priceLines.map((priceLine) => <span key={priceLine}>{priceLine}</span>)}</strong>
                     </li>
-                  ))}
+                  })}
                 </ul>
               </section>
             );

@@ -463,13 +463,6 @@
   transform: scale(1.02);
 }
 
-.cat-tab-count {
-  background: rgba(255,255,255,0.18);
-  border-radius: 999px;
-  padding: 0.05rem 0.45rem;
-  font-size: 0.72em;
-}
-
 /* ════════════════════════════════════════════════════════
    MENU GRID
 ════════════════════════════════════════════════════════ */
@@ -496,6 +489,36 @@
   background: radial-gradient(circle at 50% 0%, rgba(214, 40, 40, 0.12), transparent 42%), #0a0000;
 }
 
+.full-menu-cta-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0 clamp(1rem, 4vw, 2rem) 5rem;
+}
+
+.full-menu-cta,
+.full-menu-back {
+  border: 1px solid rgba(255, 179, 0, 0.55);
+  background: rgba(255, 179, 0, 0.1);
+  color: #ffd36a;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.full-menu-cta {
+  padding: 0.85rem 1.2rem;
+  border-radius: var(--radius-pill);
+}
+
+.full-menu-cta span { margin-left: 0.35rem; }
+
+.full-menu-cta:hover,
+.full-menu-back:hover {
+  background: rgba(255, 179, 0, 0.2);
+  transform: translateY(-2px);
+}
+
 .full-menu-heading {
   max-width: 1280px;
   margin: 0 auto 1.5rem;
@@ -518,10 +541,17 @@
   font-size: clamp(2rem, 5vw, 3rem);
 }
 
-.full-menu-heading > p:last-child {
+.full-menu-heading > h2 + p {
   margin: 0.55rem 0 0;
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+.full-menu-back {
+  margin-top: 1rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
 }
 
 .full-menu-groups {
@@ -550,13 +580,6 @@
   font-size: 1rem;
 }
 
-.full-menu-group h3 small {
-  margin-left: auto;
-  color: #ffb300;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-}
-
 .full-menu-group ul {
   display: grid;
   margin: 0;
@@ -581,10 +604,28 @@
 }
 
 .full-menu-group li strong {
+  display: grid;
+  gap: 0.25rem;
   color: #ffcf5c;
   font-family: var(--mono);
   font-size: 0.78rem;
   text-align: right;
+}
+
+.full-menu-group li strong span {
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .full-menu-group li.has-price-lines {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .full-menu-group li.has-price-lines strong {
+    justify-items: start;
+    text-align: left;
+  }
 }
 
 /* ════════════════════════════════════════════════════════

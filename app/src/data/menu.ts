@@ -57,7 +57,7 @@ export const MENU: MenuItem[] = [
     story: 'El caldo de gallina es un clásico reconfortante de la vida urbana peruana. Su lugar en la carta celebra esos platos que acompañan conversaciones largas y momentos de pausa.',
   }),
   item({
-    id: 'frejol-seco-carne', name: 'Frejol con seco de carne', price: 'S/ 12.00', category: 'platos', image: '/images/frejol-seco-carne.jpg',
+    id: 'frejol-seco-carne', name: 'Frejol con seco de carne', price: 'S/ 12.00', category: 'platos', image: '/images/frejol-seco-carne.jpg?v=2',
     tagline: 'Una combinación criolla para la buena mesa.',
     origin: 'Cocina casera peruana',
     story: 'Frejoles y seco evocan la mesa de casa, donde los sabores se comparten sin prisa. Es una elección para quienes buscan una tradición cercana y familiar.',
