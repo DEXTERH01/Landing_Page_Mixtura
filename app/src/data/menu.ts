@@ -125,6 +125,7 @@ export const MENU: MenuItem[] = [
     origin: 'Zulia · Venezuela',
     story: 'El tumbarrancho es una arepa emblemática de la tradición callejera zuliana, especialmente de Maracaibo. Esta especialidad venezolana trae a la feria una historia de identidad, barrio y sabor compartido.',
     tag: '🇻🇪 Especial venezolano',
+    featured: true,
   }),
 
   // Bebidas
